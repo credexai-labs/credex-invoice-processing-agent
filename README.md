@@ -100,7 +100,7 @@ cp .env.example .env
 
 # Required:
 # - PROVENANCE_SIGNING_KEY: Generate with `openssl rand -hex 32`
-# - CREDEXAI_API_KEY: From https://credexai.live/dashboard
+# - CREDEX_API_KEY: From https://credexai.live/dashboard
 
 # Optional:
 # - XRPL_WALLET_SEED: Leave empty for simulation mode

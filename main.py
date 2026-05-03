@@ -35,8 +35,8 @@ from pydantic import BaseModel, Field
 # Configuration
 # ---------------------------------------------------------------------------
 
-CREDEXAI_API_URL = os.getenv("CREDEXAI_API_URL", "https://api.credexai.live")
-CREDEXAI_API_KEY = os.getenv("CREDEXAI_API_KEY", "")
+CREDEXAI_API_URL = os.getenv("CREDEXAI_API_URL", "https://credexai.live/api")
+CREDEX_API_KEY = os.getenv("CREDEX_API_KEY", "")
 XRPL_NODE_URL = os.getenv("XRPL_NODE_URL", "https://s1.ripple.com:51234")
 XRPL_WALLET_SEED = os.getenv("XRPL_WALLET_SEED", "")
 PROVENANCE_SIGNING_KEY = os.getenv("PROVENANCE_SIGNING_KEY", "")
@@ -70,10 +70,10 @@ app.add_middleware(
 )
 
 # Validate critical configuration at startup
-if not CREDEXAI_API_KEY:
+if not CREDEX_API_KEY:
     import warnings
     warnings.warn(
-        "CREDEXAI_API_KEY is not set. Verification calls will fail. "
+        "CREDEX_API_KEY is not set. Verification calls will fail. "
         "Get your key at https://credexai.live/dashboard",
         stacklevel=2,
     )
@@ -351,7 +351,7 @@ async def verify_field_group(field_group: str, fields: dict, context: dict) -> d
             response = await client.post(
                 f"{CREDEXAI_API_URL}/v1/verify",
                 json=verification_payload,
-                headers={"Authorization": f"Bearer {CREDEXAI_API_KEY}"},
+                headers={"X-API-Key": CREDEX_API_KEY},
             )
             if response.status_code == 200:
                 result = response.json()
